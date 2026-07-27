@@ -1,23 +1,34 @@
 pipeline {
     agent any
+
     environment {
         DOCKERHUB = credentials('dockerhub-creds')
-        IMAGE = "your-dockerhub-username/your-repo:v1"
+        IMAGE = "maharangaraj07-ui/labassessment:v1"
     }
+
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/maharangaraj07-ui/LabAssessment.git'
+                git branch: 'main',
+                    url: 'https://github.com/maharangaraj07-ui/LabAssessment.git',
+                    credentialsId: 'github-pat'   
             }
         }
-        stage('Build') {
+
+        stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${IMAGE} ."
             }
         }
-        stage('Login & Push') {
+
+        stage('Login to Docker Hub') {
             steps {
                 sh "echo ${DOCKERHUB_PSW} | docker login -u ${DOCKERHUB_USR} --password-stdin"
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
                 sh "docker push ${IMAGE}"
             }
         }
