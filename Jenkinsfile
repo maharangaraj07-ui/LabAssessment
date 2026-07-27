@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/USERNAME/myrepo.git'
+                git 'https://github.com/maharangaraj07-ui/LabAssessment.git'
             }
         }
         stage('Build') {
