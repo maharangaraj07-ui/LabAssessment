@@ -3,15 +3,13 @@ pipeline {
 
     environment {
         DOCKERHUB = credentials('dockerhub-creds')
-        IMAGE = "maharangaraj07-ui/labassessment:v1"
+        IMAGE = "maharangaraj07-ui/LabAssessment"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/maharangaraj07-ui/LabAssessment.git',
-                    credentialsId: 'github-pat'   
+                git 'https://github.com/maharangaraj07-ui/LabAssessment.git'
             }
         }
 
